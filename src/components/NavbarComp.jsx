@@ -3,8 +3,13 @@ import React from "react";
 const NavbarComp = () => {
   return (
     <>
-      <div className="h-28 bg-[#16abf8] flex items-center px-4 lg:px-44">
-        <p className="text-white font-bold text-2xl ">TO DO LIST APP</p>
+      <div
+        data-cy="header-background"
+        className="h-28 bg-[#16abf8] flex items-center md:px-4 lg:px-44"
+      >
+        <p data-cy="header-title" className="text-white font-bold text-2xl ">
+          TO DO LIST APP
+        </p>
       </div>
     </>
   );
