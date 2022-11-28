@@ -7,6 +7,7 @@ import activityempty from "../images/activity-empty-state.png";
 const Dashboard = () => {
   const [activity, setActivity] = useState([]);
   const [totalActivity, setTotalActivity] = useState([]);
+  // const [showAlert, setShowAlert] = useState(false);
 
   const getActivity = async () => {
     await axios
@@ -30,10 +31,27 @@ const Dashboard = () => {
     await axios
       .delete(`https://todo.api.devcode.gethired.id/todo-items/${id}`)
       .then((res) => {
+        alert("apakah kamu yakin menghapusnya?");
         getActivity();
       })
       .catch((err) => {
         alert("error");
+      });
+  };
+
+  // const closeAlert = () => setShowAlert(false)
+  // const
+  const handleAddActivity = async () => {
+    await axios
+      .post("https://todo.api.devcode.gethired.id/todo-items", {
+        activity_group_id: 1001,
+        title: "New Activity",
+      })
+      .then((res) => {
+        getActivity();
+      })
+      .catch((err) => {
+        alert("gagal menambah aktivitas");
       });
   };
 
@@ -44,7 +62,7 @@ const Dashboard = () => {
           <p data-cy="activity-title" className="font-bold text-4xl">
             Activity
           </p>
-          <ButtonTambah data-cy="activity-add" />
+          <ButtonTambah data-cy="activity-add" onClick={handleAddActivity} />
         </div>
         <div className="activity-container pt-14">
           {totalActivity === 0 ? (
