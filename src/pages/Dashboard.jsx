@@ -12,7 +12,7 @@ const Dashboard = () => {
   const getActivity = async () => {
     await axios
       .get(
-        "https://todo.api.devcode.gethired.id/todo-items?activity_group_id=1001"
+        "https://todo.api.devcode.gethired.id/activity-groups?email=syifaulya0610@gmail.com"
       )
       .then((response) => {
         setActivity(response.data.data);
@@ -29,7 +29,7 @@ const Dashboard = () => {
 
   const handleDeleteActivity = async (id) => {
     await axios
-      .delete(`https://todo.api.devcode.gethired.id/todo-items/${id}`)
+      .delete(`https://todo.api.devcode.gethired.id/activity-groups/${id}`)
       .then((res) => {
         alert("apakah kamu yakin menghapusnya?");
         getActivity();
@@ -41,12 +41,15 @@ const Dashboard = () => {
 
   // const closeAlert = () => setShowAlert(false)
   // const
-  const handleAddActivity = async () => {
-    await axios
-      .post("https://todo.api.devcode.gethired.id/todo-items", {
-        activity_group_id: 1001,
-        title: "New Activity",
-      })
+  const handleAddActivity = () => {
+    axios
+      .post(
+        "https://todo.api.devcode.gethired.id/activity-groups?email=syifaulya0610@gmail.com",
+        {
+          title: "New Activity",
+          email: "syifaulya0610@gmail.com",
+        }
+      )
       .then((res) => {
         getActivity();
       })
