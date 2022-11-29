@@ -33,7 +33,7 @@ const Dashboard = () => {
     await axios
       .delete(`https://todo.api.devcode.gethired.id/activity-groups/${id}`)
       .then((res) => {
-        setShowAlert(false);
+        // setShowAlert(false);
         getActivity();
       })
       .catch((err) => {
