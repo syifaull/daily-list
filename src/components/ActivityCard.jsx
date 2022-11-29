@@ -10,7 +10,7 @@ const ActivityCard = (props) => {
   return (
     <div
       className="h-56 bg-white shadow-xl rounded-xl"
-      onClick={props.onClickActivity}
+      onClick={props.onClickTodo}
     >
       <div className="p-5">
         <p className="text-lg font-bold">{props.title}</p>

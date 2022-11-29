@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import ActivityCard from "../components/ActivityCard";
 import ButtonTambah from "../components/ButtonTambah";
 import activityempty from "../images/activity-empty-state.png";
@@ -8,6 +9,7 @@ const Dashboard = () => {
   const [activity, setActivity] = useState([]);
   const [totalActivity, setTotalActivity] = useState([]);
   // const [showAlert, setShowAlert] = useState(false);
+  const navigate = useNavigate();
 
   const getActivity = async () => {
     await axios
@@ -58,6 +60,14 @@ const Dashboard = () => {
       });
   };
 
+  const handleMoveTodo = (id) => {
+    navigate("/list", {
+      state: {
+        id: id,
+      },
+    });
+  };
+
   return (
     <>
       <div className="md:px-4 lg:px-44">
@@ -78,13 +88,14 @@ const Dashboard = () => {
             </div>
           ) : (
             <div className="grid grid-cols-4 gap-5">
-              {activity.map((todo, index) => {
+              {activity.map((task, index) => {
                 return (
                   <div key={index}>
                     <ActivityCard
-                      title={todo.title}
-                      created_at={todo.created_at}
-                      onClickDelete={() => handleDeleteActivity(todo.id)}
+                      title={task.title}
+                      created_at={task.created_at}
+                      onClickDelete={() => handleDeleteActivity(task.id)}
+                      onClickTodo={() => handleMoveTodo(task.id)}
                     />
                   </div>
                 );
