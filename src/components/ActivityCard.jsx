@@ -8,15 +8,20 @@ const ActivityCard = (props) => {
   );
   let print = date.replace(",", "").split(" ");
   return (
-    <div className="p-5 bg-white shadow-xl rounded-xl">
+    <div className="p-5 bg-white shadow-xl rounded-xl" data-cy="activity-item">
       <div className="h-44" onClick={props.onClickTodo}>
-        <p className="text-lg font-bold">{props.title}</p>
+        <p data-cy="activity-item-title" className="text-lg font-bold">
+          {props.title}
+        </p>
       </div>
       <div className="flex justify-between text-[#888888]">
-        <p>
+        <p data-cy="activity-item-date">
           {print[1]} {print[0]} {print[2]}
         </p>
-        <div onClick={props.onClickAlert}>
+        <div
+          data-cy="activity-item-delete-button"
+          onClick={props.onClickDeleteToDo}
+        >
           <TrashIcon className="w-5 h-5" />
         </div>
       </div>
