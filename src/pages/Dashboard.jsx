@@ -3,12 +3,13 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ActivityCard from "../components/ActivityCard";
 import ButtonTambah from "../components/ButtonTambah";
+import PopUpModal from "../components/PopUpModal";
 import activityempty from "../images/activity-empty-state.png";
 
 const Dashboard = () => {
   const [activity, setActivity] = useState([]);
   const [totalActivity, setTotalActivity] = useState([]);
-  // const [showAlert, setShowAlert] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
   const navigate = useNavigate();
 
   const getActivity = async () => {
@@ -33,7 +34,7 @@ const Dashboard = () => {
     await axios
       .delete(`https://todo.api.devcode.gethired.id/activity-groups/${id}`)
       .then((res) => {
-        alert("apakah kamu yakin menghapusnya?");
+        setShowAlert(false);
         getActivity();
       })
       .catch((err) => {
@@ -42,7 +43,8 @@ const Dashboard = () => {
   };
 
   // const closeAlert = () => setShowAlert(false)
-  // const
+  // const openAlert = () => setShowAlert(true)
+
   const handleAddActivity = () => {
     axios
       .post(
@@ -94,9 +96,16 @@ const Dashboard = () => {
                     <ActivityCard
                       title={task.title}
                       created_at={task.created_at}
-                      onClickDelete={() => handleDeleteActivity(task.id)}
+                      onClickAlert={() => setShowAlert(true)}
                       onClickTodo={() => handleMoveTodo(task.id)}
                     />
+                    {showAlert ? (
+                      <PopUpModal
+                        onClickDeleteToDo={() => handleDeleteActivity(task.id)}
+                        onClickCloseAlert={() => setShowAlert(false)}
+                        title={task.title}
+                      />
+                    ) : null}
                   </div>
                 );
               })}
